@@ -27,6 +27,7 @@
 <script src="earthquakeTiming_files/navigation-1.1/codefolding.js"></script>
 <link href="earthquakeTiming_files/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="earthquakeTiming_files/highlightjs-9.12.0/highlight.js"></script>
+<script src="earthquakeTiming_files/kePrint-0.0.1/kePrint.js"></script>
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
@@ -306,7 +307,7 @@ div.tocify {
 <h1 class="title toc-ignore">On the timing of earthquakes (and their magnitude)</h1>
 <h3 class="subtitle">Using Aotearoa New Zealand GeoNet data</h3>
 <h4 class="author">Ben Anderson (Contact: <a href="mailto:b.anderson@soton.ac.uk" class="email">b.anderson@soton.ac.uk</a>, <code>@dataknut</code>)</h4>
-<h4 class="date">Last run at: 2019-08-14 12:02:23</h4>
+<h4 class="date">Last run at: 2019-08-14 12:15:12</h4>
 
 </div>
 
@@ -328,8 +329,9 @@ div.tocify {
 <pre><code>## Warning in min(magnitude): no non-missing arguments to min; returning Inf</code></pre>
 <pre><code>## Warning in max(magnitude): no non-missing arguments to max; returning -Inf</code></pre>
 <pre class="r"><code>kableExtra::kable(t[!is.na(eventtype)], digits = 2,
-                  caption = &quot;Mean magnitude and number of events&quot;)</code></pre>
-<table>
+                  caption = &quot;Mean magnitude and number of events&quot;) %&gt;%
+  kable_styling()</code></pre>
+<table class="table" style="margin-left: auto; margin-right: auto;">
 <caption>
 <span id="tab:eventsTab">Table 2.1: </span>Mean magnitude and number of events
 </caption>
@@ -462,8 +464,8 @@ dt &lt;- dt[, hms := hms::as.hms(origintime)]
 dt &lt;- dt[, halfHour := hms::trunc_hms(hms, 60*30)]</code></pre>
 <p>As we can see there are some (4) records with magnitude &lt; 0?</p>
 </div>
-<div id="q1-are-earthquakes-more-likely-to-occur-at-night-part-1" class="section level1">
-<h1><span class="header-section-number">3</span> Q1: Are earthquakes more likely to occur at night (part 1)?</h1>
+<div id="q1-are-earthquakes-more-likely-to-occur-at-night" class="section level1">
+<h1><span class="header-section-number">3</span> Q1: Are earthquakes more likely to occur at night?</h1>
 <p>To answer this we plot all earthquakes where magnitude &gt; 0.</p>
 <pre class="r"><code>plotDT &lt;- dt[magnitude &gt; 0, .(nObs = .N,
                  meanMag = mean(magnitude)), keyby = .(halfHour)]
@@ -492,7 +494,7 @@ p</code></pre>
 Figure 3.1: Number of earthquakes by time of day
 </p>
 </div>
-<p>So. Figure <a href="#fig:allPoint">3.1</a> suggests more are detected at night. Really? But there is a little clue - the mean magnitude is higher during the day. This also seems unlikely.</p>
+<p>So. Figure <a href="#fig:allPoint">3.1</a> suggests more are detected at night. Really? But there is a little clue in the colour of the points - the mean magnitude is higher during the day. This also seems unlikely.</p>
 </div>
 <div id="q2-are-large-earthquakes-more-likely-to-occur-during-the-day" class="section level1">
 <h1><span class="header-section-number">4</span> Q2: Are large earthquakes more likely to occur during the day?</h1>
