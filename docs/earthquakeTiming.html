@@ -307,7 +307,7 @@ div.tocify {
 <h1 class="title toc-ignore">On the timing of earthquakes (and their magnitude)</h1>
 <h3 class="subtitle">Using Aotearoa New Zealand GeoNet data</h3>
 <h4 class="author">Ben Anderson (Contact: <a href="mailto:b.anderson@soton.ac.uk" class="email">b.anderson@soton.ac.uk</a>, <code>@dataknut</code>)</h4>
-<h4 class="date">Last run at: 2019-08-14 12:15:12</h4>
+<h4 class="date">Last run at: 2019-08-14 12:17:20</h4>
 
 </div>
 
@@ -320,7 +320,7 @@ div.tocify {
 </div>
 <div id="data" class="section level1">
 <h1><span class="header-section-number">2</span> Data</h1>
-<p>We downloaded all earthquake records from 2018-09-01 to 2019-08-01. This is a grand total of 19879 records.</p>
+<p>We downloaded all earthquake records from 2018-09-01 to 2019-08-13. This is a grand total of 20498 records.</p>
 <p>Not all the events are actually earthquakes. As Table <a href="#tab:eventsTab">2.1</a> shows, there are explosions, quarry blasts etc.</p>
 <pre class="r"><code>t &lt;- cube(dt, j = list(&quot;min magnitude&quot; = min(magnitude),
                        &quot;mean magnitude&quot; = mean(magnitude),
@@ -369,24 +369,7 @@ earthquake
 6.16
 </td>
 <td style="text-align:right;">
-16405
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-quarry blast
-</td>
-<td style="text-align:right;">
-0.66
-</td>
-<td style="text-align:right;">
-2.07
-</td>
-<td style="text-align:right;">
-2.84
-</td>
-<td style="text-align:right;">
-56
+17018
 </td>
 </tr>
 <tr>
@@ -397,13 +380,30 @@ not locatable
 0.38
 </td>
 <td style="text-align:right;">
-1.70
+1.69
 </td>
 <td style="text-align:right;">
 3.26
 </td>
 <td style="text-align:right;">
-42
+43
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+quarry blast
+</td>
+<td style="text-align:right;">
+0.66
+</td>
+<td style="text-align:right;">
+2.09
+</td>
+<td style="text-align:right;">
+2.84
+</td>
+<td style="text-align:right;">
+58
 </td>
 </tr>
 <tr>
@@ -414,13 +414,13 @@ outside of network interest
 0.78
 </td>
 <td style="text-align:right;">
-4.20
+4.19
 </td>
 <td style="text-align:right;">
 6.70
 </td>
 <td style="text-align:right;">
-197
+199
 </td>
 </tr>
 <tr>
@@ -547,7 +547,7 @@ Figure 5.1: Mean magnitude of earthquakes by time of day
 </div>
 <div id="data-annex" class="section level1">
 <h1><span class="header-section-number">6</span> Data Annex</h1>
-<p>Original data as loaded from <a href="https://quakesearch.geonet.org.nz/csv?bbox=163.95996,-49.18170,182.63672,-32.28713&amp;startdate=2018-09-01&amp;enddate=2019-08-01" class="uri">https://quakesearch.geonet.org.nz/csv?bbox=163.95996,-49.18170,182.63672,-32.28713&amp;startdate=2018-09-01&amp;enddate=2019-08-01</a>:</p>
+<p>Original data as loaded from <a href="https://quakesearch.geonet.org.nz/csv?bbox=163.95996,-49.18170,182.63672,-32.28713&amp;startdate=2018-09-01&amp;enddate=2019-08-13" class="uri">https://quakesearch.geonet.org.nz/csv?bbox=163.95996,-49.18170,182.63672,-32.28713&amp;startdate=2018-09-01&amp;enddate=2019-08-13</a>:</p>
 <pre class="r"><code>skimr::skim(df) # original data</code></pre>
 <pre><code>## No skim method exists for class function.</code></pre>
 </div>
