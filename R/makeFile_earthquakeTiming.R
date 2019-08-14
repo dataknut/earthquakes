@@ -31,7 +31,7 @@ plan <- drake::drake_plan(
   report = rmarkdown::render(
     knitr_in(rmdFile),
     output_file = file_out(htmlFile),
-    quiet = FALSE
+    quiet = TRUE
   )
 )
 
