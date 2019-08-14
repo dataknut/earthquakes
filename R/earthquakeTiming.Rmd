@@ -1,0 +1,159 @@
+---
+params:
+  authors: 'Ben Anderson'
+  title: 'On the timing of earthquakes (and their magnitude)'
+  subtitle: 'Using Aotearoa New Zealand GeoNet data'
+title: '`r paste0(params$title)`'
+subtitle: '`r paste0(params$subtitle)`'
+author: '`r paste0(params$authors)` (Contact: b.anderson@soton.ac.uk, `@dataknut`)'
+date: 'Last run at: `r Sys.time()`'
+always_allow_html: yes
+output:
+  bookdown::html_document2:
+    code_folding: hide
+    fig_caption: yes
+    number_sections: yes
+    self_contained: no
+    toc: yes
+    toc_depth: 2
+    toc_float: yes
+bibliography: '`r path.expand("~/bibliography.bib")`'
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(skimr)
+library(ggplot2)
+
+# get the data back from wherever drake put it
+dt <- drake::readd(drakeData)
+  
+```
+
+# Background
+
+We had a bit or rock n roll on [Monday night](https://www.geonet.org.nz/earthquake/2019p603895). So the question naturally arose: `are earthquakes more likely to occur at night?`.
+
+You might [think not](https://www.quora.com/Why-do-earthquakes-happen-at-night-most-of-the-time), I couldn't possibly comment.
+
+Luckily in Aotearoa New Zealand [GeoNet](https://www.geonet.org.nz/) makes answering the question very easy. Just [download](https://quakesearch.geonet.org.nz/) the most recent year's worth of earthquake records and off you go...
+
+# Data
+
+We downloaded all earthquake records from `r startDate` to `r endDate`. This is a grand total of `r nrow(dt)` records.
+
+Not all the events are actually earthquakes. As Table \@ref(tab:eventsTab) shows, there are explosions, quarry blasts etc.
+
+```{r eventsTab}
+t <- cube(dt, j = list("min magnitude" = min(magnitude),
+                       "mean magnitude" = mean(magnitude),
+                       "max magnitude" = max(magnitude), 
+                       "n Obs" = .N), by = c("eventtype"))
+
+kableExtra::kable(t[!is.na(eventtype)], digits = 2,
+                  caption = "Mean magnitude and number of events")
+
+dt <- dt[eventtype %like% "earthquake"]
+dt <- dt[, hms := hms::as.hms(origintime)]
+dt <- dt[, halfHour := hms::trunc_hms(hms, 60*30)]
+```
+
+As we can see there are some (`r nrow(dt[magnitude <= 0])`) records with magnitude < 0?
+
+# Q1: Are earthquakes more likely to occur at night (part 1)?
+
+To answer this we plot all earthquakes where magnitude > 0.
+
+```{r allPoint, fig.cap="Number of earthquakes by time of day"}
+plotDT <- dt[magnitude > 0, .(nObs = .N,
+                 meanMag = mean(magnitude)), keyby = .(halfHour)]
+
+myCaption <- paste0("Source: NZ GeoNet (https://quakesearch.geonet.org.nz/)\nAll earthquakes ",
+                    min(lubridate::date(dt$origintime)), " to ", max(lubridate::date(dt$origintime))
+                    )
+
+p <- ggplot2::ggplot(plotDT, aes(x = halfHour, 
+                                 y = nObs, 
+                                 colour = round(meanMag,1)
+                                 )
+                     ) +
+  geom_point() +
+  labs(x = "Time of Day (half hours)",
+       y = "Number of Observations",
+       caption = paste0(myCaption,
+                        "\nAll magnitude > 0 (", nrow(dt[magnitude > 0]), ")")) +
+  scale_color_continuous(low = "green", high = "red", name = "Mean magnitude") +
+  theme(legend.position="bottom")
+
+p
+```
+
+So. Figure \@ref(fig:allPoint) suggests more are detected at night. Really? But there is a little clue - the mean magnitude is higher during the day. This also seems unlikely.
+
+# Q2: Are large earthquakes more likely to occur during the day?
+
+To answer this we plot all earthquakes where magnitude > 3.
+
+```{r allPoint3, fig.cap="Number of earthquakes by time of day (magnitude > 3)"}
+plotDT <- dt[magnitude > 3, .(nObs = .N,
+                 meanMag = mean(magnitude)), keyby = .(halfHour)]
+
+p <- ggplot2::ggplot(plotDT, aes(x = halfHour, 
+                                 y = nObs, 
+                                 colour = round(meanMag,1)
+                                 )
+                     ) +
+  geom_point() +
+  labs(x = "Time of Day (half hours)",
+       y = "Number of Observations",
+       caption = paste0(myCaption,
+                        "\nAll magnitude > 3 (", nrow(dt[magnitude > 3]), ")")
+                        ) +
+  scale_color_continuous(low = "green", high = "red", name = "Mean magnitude") +
+  theme(legend.position="bottom")
+
+p
+```
+
+This suggests that it is just easier to detect lower magnitude earthquakes at night when people are asleep, there are no trucks on the roads etc.
+
+# Q3: Are stronger earthquakes more likely during the day?
+
+Just to check:
+
+```{r magBox, fig.cap="Mean magnitude of earthquakes by time of day"}
+p <- ggplot2::ggplot(dt[magnitude > 0], aes(x = halfHour, y = magnitude, group = halfHour)) +
+  geom_boxplot() +
+  labs(x = "Time of Day",
+       y = "Magnitude",
+       caption = paste0(myCaption,
+                        "\nAll magnitude > 0 (", nrow(dt[magnitude > 0]), ")")
+                        ) +
+  theme(legend.position="bottom")
+p
+```
+
+No they are not.
+
+# Data Annex
+
+Original data as loaded from `r dataURL`:
+
+```{r dataSkim}
+skimr::skim(df) # original data
+```
+
+# R packages used
+
+ * base R [@baseR]
+ * data.table [@data.table] - for data munching
+ * drake [@drake] - for data pre-loading and caching
+ * ggplot2 [@ggplot2] - for plots
+ * hms [@hms] - for time munching
+ * kableExtra [@kableExtra] - for nice tables
+ * lubridate [@lubridate] - for dateTime munching
+ * readr [@readr] - for data download & parsing
+ * skimr [@skimr] - for data description
+ 
+# References
