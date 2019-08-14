@@ -95,9 +95,9 @@ p <- ggplot2::ggplot(plotDT, aes(x = halfHour,
 p
 ```
 
-So. Figure \@ref(fig:allPoint) suggests more are detected at night. Really? But there is a little clue in the colour of the points - the mean magnitude is higher during the day. This also seems unlikely.
+Figure \@ref(fig:allPoint) suggests more occur (or at least are detected) at night. Really? But there is a little clue in the colour of the points - the mean magnitude is higher during the day. This seems unlikely.
 
-# Q2: Are large earthquakes more likely to occur during the day?
+# Q2: Are stronger earthquakes more likely to occur during the day?
 
 To answer this we plot all earthquakes where magnitude > 3.
 

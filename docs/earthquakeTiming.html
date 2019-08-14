@@ -307,7 +307,7 @@ div.tocify {
 <h1 class="title toc-ignore">On the timing of earthquakes (and their magnitude)</h1>
 <h3 class="subtitle">Using Aotearoa New Zealand GeoNet data</h3>
 <h4 class="author">Ben Anderson (Contact: <a href="mailto:b.anderson@soton.ac.uk" class="email">b.anderson@soton.ac.uk</a>, <code>@dataknut</code>)</h4>
-<h4 class="date">Last run at: 2019-08-14 12:30:50</h4>
+<h4 class="date">Last run at: 2019-08-14 12:42:54</h4>
 
 </div>
 
@@ -494,10 +494,10 @@ p</code></pre>
 Figure 3.1: Number of earthquakes by time of day
 </p>
 </div>
-<p>So. Figure <a href="#fig:allPoint">3.1</a> suggests more are detected at night. Really? But there is a little clue in the colour of the points - the mean magnitude is higher during the day. This also seems unlikely.</p>
+<p>Figure <a href="#fig:allPoint">3.1</a> suggests more occur (or at least are detected) at night. Really? But there is a little clue in the colour of the points - the mean magnitude is higher during the day. This seems unlikely.</p>
 </div>
-<div id="q2-are-large-earthquakes-more-likely-to-occur-during-the-day" class="section level1">
-<h1><span class="header-section-number">4</span> Q2: Are large earthquakes more likely to occur during the day?</h1>
+<div id="q2-are-stronger-earthquakes-more-likely-to-occur-during-the-day" class="section level1">
+<h1><span class="header-section-number">4</span> Q2: Are stronger earthquakes more likely to occur during the day?</h1>
 <p>To answer this we plot all earthquakes where magnitude &gt; 3.</p>
 <pre class="r"><code>plotDT &lt;- dt[magnitude &gt; 3, .(nObs = .N,
                  meanMag = mean(magnitude)), keyby = .(halfHour)]
