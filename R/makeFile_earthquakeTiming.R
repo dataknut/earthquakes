@@ -7,7 +7,7 @@ library(skimr)
 baseURL <- "https://quakesearch.geonet.org.nz/csv?"
 bbox <- "163.95996,-49.18170,182.63672,-32.28713"
 startDate <- "2018-09-01"
-endDate <- "2019-08-01"
+endDate <- "2019-08-13"
 
 dataURL <- paste0(baseURL, 
                   "bbox=", bbox, 

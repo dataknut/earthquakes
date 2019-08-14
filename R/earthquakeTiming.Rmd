@@ -123,7 +123,7 @@ This suggests that it is just easier to detect lower magnitude earthquakes at ni
 
 Just to check:
 
-```{r magBox, fig.cap="Mean magnitude of earthquakes by time of day"}
+```{r magBox, fig.cap="Box plot of magnitude of earthquakes by time of day"}
 p <- ggplot2::ggplot(dt[magnitude > 0], aes(x = halfHour, y = magnitude, group = halfHour)) +
   geom_boxplot() +
   labs(x = "Time of Day",
