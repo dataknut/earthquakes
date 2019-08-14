@@ -307,7 +307,7 @@ div.tocify {
 <h1 class="title toc-ignore">On the timing of earthquakes (and their magnitude)</h1>
 <h3 class="subtitle">Using Aotearoa New Zealand GeoNet data</h3>
 <h4 class="author">Ben Anderson (Contact: <a href="mailto:b.anderson@soton.ac.uk" class="email">b.anderson@soton.ac.uk</a>, <code>@dataknut</code>)</h4>
-<h4 class="date">Last run at: 2019-08-14 12:26:32</h4>
+<h4 class="date">Last run at: 2019-08-14 12:30:50</h4>
 
 </div>
 
@@ -548,8 +548,55 @@ Figure 5.1: Box plot of magnitude of earthquakes by time of day
 <div id="data-annex" class="section level1">
 <h1><span class="header-section-number">6</span> Data Annex</h1>
 <p>Original data as loaded from <a href="https://quakesearch.geonet.org.nz/csv?bbox=163.95996,-49.18170,182.63672,-32.28713&amp;startdate=2018-09-01&amp;enddate=2019-08-13" class="uri">https://quakesearch.geonet.org.nz/csv?bbox=163.95996,-49.18170,182.63672,-32.28713&amp;startdate=2018-09-01&amp;enddate=2019-08-13</a>:</p>
-<pre class="r"><code>skimr::skim(df) # original data</code></pre>
-<pre><code>## No skim method exists for class function.</code></pre>
+<pre class="r"><code>skimr::skim(origDT) # original data</code></pre>
+<pre><code>## Skim summary statistics
+##  n obs: 20498 
+##  n variables: 21 
+## 
+## ── Variable type:character ───────────────────────────────────────────────────────────────────────────────────────
+##          variable missing complete     n min max empty n_unique
+##         depthtype   16390     4108 20498  13  17     0        2
+##        earthmodel      33    20465 20498   3   8     0        4
+##  evaluationmethod      33    20465 20498   6   9     0        2
+##    evaluationmode       0    20498 20498   6   9     0        2
+##  evaluationstatus    3229    17269 20498   9  11     0        2
+##         eventtype    3161    17337 20498   9  27     0        6
+##     magnitudetype       0    20498 20498   1   6     0        5
+##          publicid       0    20498 20498  11  11     0    20498
+## 
+## ── Variable type:numeric ─────────────────────────────────────────────────────────────────────────────────────────
+##               variable missing complete     n     mean     sd        p0
+##           azimuthalgap       0    20498 20498 139.05   66.85     0     
+##                  depth       0    20498 20498  42.09   56.41     0     
+##               latitude       0    20498 20498 -39.7     2.16   -48.91  
+##              longitude       0    20498 20498 170.28   42.41  -180     
+##              magnitude       0    20498 20498   2.08    0.71    -0.15  
+##  magnitudestationcount       0    20498 20498   9.6     8.83     1     
+##   magnitudeuncertainty       0    20498 20498   0.0034  0.033    0     
+##        minimumdistance       0    20498 20498   0.33    0.6      0     
+##            originerror       0    20498 20498   0.53    0.34     0.0051
+##         usedphasecount       0    20498 20498  22.86   10.88     0     
+##       usedstationcount       0    20498 20498  16.73    9.04     0     
+##      p25    p50    p75   p100     hist
+##   87.22  123.61 180.26 353.55 ▁▇▇▅▃▂▁▁
+##    7.32   19.94  42.51 671.26 ▇▁▁▁▁▁▁▁
+##  -40.87  -39.34 -38.39 -32.29 ▁▁▁▃▇▅▁▁
+##  174.44  175.85 176.9  180    ▁▁▁▁▁▁▁▇
+##    1.66    2.04   2.42   6.7  ▁▃▇▃▁▁▁▁
+##    6       7     11    151    ▇▁▁▁▁▁▁▁
+##    0       0      0      1.06 ▇▁▁▁▁▁▁▁
+##    0.085   0.15   0.31   5.95 ▇▁▁▁▁▁▁▁
+##    0.33    0.45   0.61  10.42 ▇▁▁▁▁▁▁▁
+##   16      20     26    132    ▃▇▁▁▁▁▁▁
+##   11      14     19    119    ▇▆▁▁▁▁▁▁
+## 
+## ── Variable type:POSIXct ─────────────────────────────────────────────────────────────────────────────────────────
+##          variable missing complete     n        min        max     median
+##  modificationtime       0    20498 20498 2018-09-01 2019-08-14 2019-03-16
+##        origintime       0    20498 20498 2018-09-01 2019-08-12 2019-03-15
+##  n_unique
+##     20497
+##     20496</code></pre>
 </div>
 <div id="r-packages-used" class="section level1">
 <h1><span class="header-section-number">7</span> R packages used</h1>

@@ -1,8 +1,6 @@
 library(data.table)
 library(drake)
-library(hms)
-library(lubridate)
-library(skimr)
+library(readr)
 
 baseURL <- "https://quakesearch.geonet.org.nz/csv?"
 bbox <- "163.95996,-49.18170,182.63672,-32.28713"

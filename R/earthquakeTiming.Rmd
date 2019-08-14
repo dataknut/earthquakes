@@ -23,12 +23,17 @@ bibliography: '`r path.expand("~/bibliography.bib")`'
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 
-library(skimr)
+# Libraries need in .Rmd ----
 library(ggplot2)
+library(kableExtra)
+library(lubridate)
+library(hms)
+library(skimr)
 
-# get the data back from wherever drake put it
-dt <- drake::readd(drakeData)
-  
+# Get the data back from wherever drake put it ----
+origDT <- drake::readd(drakeData)
+
+dt <- copy(origDT)
 ```
 
 # Background
@@ -142,7 +147,7 @@ No they are not.
 Original data as loaded from `r dataURL`:
 
 ```{r dataSkim}
-skimr::skim(df) # original data
+skimr::skim(origDT) # original data
 ```
 
 # R packages used
